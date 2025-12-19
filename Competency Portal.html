@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Competency Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    
+    <style>
+        /* --- LIGHT THEME DESIGN SYSTEM --- */
+        :root {
+            /* Palette - Light Mode Core */
+            --bg-gradient-start: #F8FAFC; /* Slate 50 */
+            --bg-gradient-end: #E2E8F0;   /* Slate 200 */
+            
+            /* Accents (Darkened slightly for visibility on white) */
+            --primary: #7C3BED;       /* Deep Purple */
+            --primary-light: #F3E8FF; /* Light Purple Bg */
+            --accent-teal: #0D9488;   /* Teal 600 */
+            --accent-purple: #9333EA; /* Purple 600 */
+            
+            /* Text */
+            --text-main: #0F172A;      /* Slate 900 */
+            --text-secondary: #475569; /* Slate 600 */
+            --text-muted: #94A3B8;     /* Slate 400 */
+            --text-inverse: #FFFFFF;
+            
+            /* Glassmorphism - Light Style */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.9);
+            --glass-blur: blur(20px);
+            --glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+            
+            /* UI Elements */
+            --card-bg: #FFFFFF;
+            --hover-bg: rgba(0, 0, 0, 0.04);
+            --border-light: rgba(0, 0, 0, 0.06);
+
+            /* Transitions */
+            --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            background-attachment: fixed;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden; 
+        }
+
+        /* --- UTILITIES --- */
+        .material-symbols-outlined { font-size: 24px; font-variation-settings: 'FILL' 0, 'wght' 400; }
+        .hidden { display: none !important; }
+        
+        /* Custom Scrollbar (Light) */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+
+        /* --- LAYOUT --- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 320px;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(24px);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            flex-shrink: 0;
+            z-index: 50;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: var(--border-light);
+        }
+
+        .brand-text { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-main); }
+
+        .sidebar-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin: 24px 0 12px 12px;
+        }
+
+        /* Level Item Selector */
+        .level-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out);
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+        }
+
+        .level-item:hover { background: var(--hover-bg); color: var(--text-main); }
+
+        .level-item.active {
+            background: var(--primary-light);
+            border: 1px solid rgba(124, 59, 237, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .level-info { display: flex; align-items: center; gap: 12px; }
+        
+        .level-icon-box {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.04);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .level-item.active .level-icon-box {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(124, 59, 237, 0.3);
+        }
+
+        .level-name { font-size: 0.9rem; }
+
+        /* CTA Button */
+        .sidebar-cta {
+            margin-top: auto;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: var(--text-main);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            position: relative;
+            scroll-behavior: smooth;
+            background: transparent;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breadcrumb { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.9rem; }
+        .breadcrumb-active { color: var(--text-main); font-weight: 600; }
+
+        /* Level Overview Header */
+        .overview-container { padding: 40px 40px 0 40px; }
+
+        .glass-card-lg {
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        /* Abstract bg decoration (Subtle) */
+        .glass-card-lg::before {
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 300px; height: 300px; background: linear-gradient(135deg, #F3E8FF, #E0F2FE);
+            filter: blur(60px); opacity: 0.6; border-radius: 50%; z-index: -1;
+        }
+
+        .level-title-large {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+        }
+
+        .level-subtitle { font-size: 1.1rem; color: var(--accent-teal); margin-bottom: 16px; font-weight: 600; }
+
+        .scope-box {
+            background: #FFFFFF;
+            padding: 20px 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 900px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            position: sticky;
+            top: 77px;
+            z-index: 30;
+            background: rgba(248, 250, 252, 0.85); /* Matches body bg */
+            backdrop-filter: blur(12px);
+            padding: 16px 40px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 32px;
+        }
+
+        .tabs-pill-wrapper { 
+            display: inline-flex; gap: 8px; 
+            background: rgba(0,0,0,0.03);
+            padding: 4px;
+            border-radius: 99px;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border-radius: 99px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover { color: var(--text-main); }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* --- CONTENT --- */
+        .content-body { padding: 0 40px 64px 40px; }
+
+        /* Competency Cards */
+        .competency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .comp-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .comp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(124, 59, 237, 0.2);
+        }
+
+        .comp-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-teal));
+        }
+
+        .comp-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        
+        .comp-icon-box {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            background: var(--primary-light);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .comp-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); }
+        .comp-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* Promotion & Artifacts */
+        .section-header {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+        }
+        .section-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
+
+        .criteria-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .criteria-item {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex; gap: 16px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .criteria-icon { color: var(--accent-teal); font-weight: bold; flex-shrink: 0; }
+
+        .artifact-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+        .artifact-chip {
+            background: #FFFFFF;
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Examples Tab */
+        .example-block {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 32px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .quote-box {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-main);
+            padding-left: 24px;
+            border-left: 4px solid var(--primary);
+            margin: 20px 0;
+            line-height: 1.6;
+            background: var(--bg-gradient-start);
+            padding: 24px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .learning-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;
+        }
+        .learning-card {
+            background: #FFFFFF;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .learning-card:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        /* Animation */
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        .empty-state {
+            height: 100%; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; color: var(--text-muted);
+        }
+        .empty-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.3; }
+
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-text">Competency<br><span style="color: var(--primary)">Portal</span></div>
+            <div style="background: rgba(0,0,0,0.05); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; color: var(--text-secondary); font-weight: 600;">v2.0 Light</div>
+        </div>
+
+        <div style="flex: 1; overflow-y: auto; padding-right: 4px;">
+            <div class="sidebar-section-title">Individual Contributors</div>
+            <div id="ic-level-list"></div>
+
+            <div class="sidebar-section-title">People Leaders</div>
+            <div id="mgr-level-list"></div>
+        </div>
+
+        <button class="sidebar-cta" onclick="window.open('https://docs.google.com/spreadsheets/d/1ztekOV5nTiUR0RQjxwrMnlLW9l5kukZM/edit?usp=sharing', '_blank')">
+            VIEW FULL SHEET
+        </button>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="breadcrumb">
+                Engineering <span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span> 
+                <span id="breadcrumb-role" class="breadcrumb-active">Select Level</span>
+            </div>
+            <div class="level-icon-box" style="width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+            <span class="material-symbols-outlined empty-icon">manage_search</span>
+            <h3>Select an Engineering Level</h3>
+            <p style="margin-top: 8px;">View competencies, promotion criteria, and artifacts.</p>
+        </div>
+
+        <div id="roleContent" class="hidden">
+            
+            <div class="overview-container fade-in-up">
+                <div class="glass-card-lg">
+                    <h1 id="roleTitle" class="level-title-large"></h1>
+                    <div id="roleSubtitle" class="level-subtitle"></div>
+                    <div id="roleScope" class="scope-box"></div>
+                </div>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tabs-pill-wrapper">
+                    <button class="tab-btn active" onclick="switchTab('competencies')">Competencies</button>
+                    <button class="tab-btn" onclick="switchTab('promotion')">Criteria & Artifacts</button>
+                    <button class="tab-btn" onclick="switchTab('examples')">Interview & Growth</button>
+                </div>
+            </div>
+
+            <div class="content-body">
+                
+                <div id="tab-competencies" class="tab-pane">
+                    <div id="competencyGrid" class="competency-grid"></div>
+                </div>
+
+                <div id="tab-promotion" class="tab-pane hidden">
+                    <div class="example-block fade-in-up">
+                        <div class="section-header">
+                            <span class="material-symbols-outlined" style="color: var(--accent-teal);">trending_up</span>
+                            <div class="section-title">Promotion Criteria</div>
+                        </div>
+                        <ul id="promoList" class="criteria-list"></ul>
+                    </div>
+
+                    <div class="example-block fade-in-up" style="animation-delay: 0.1s">
+                        <div class="section-header">
+                            <span class="material-symbols-outlined" style="color: var(--accent-purple);">assignment</span>
+                            <div class="section-title">Required Artifacts</div>
+                        </div>
+                        <div id="artifactGrid" class="artifact-grid"></div>
+                    </div>
+                </div>
+
+                <div id="tab-examples" class="tab-pane hidden">
+                    <div class="example-block fade-in-up">
+                        <div class="section-header">
+                            <span class="material-symbols-outlined" style="color: var(--primary);">forum</span>
+                            <div class="section-title">Evaluation & Interview</div>
+                        </div>
+                        <div class="quote-box" id="interviewQ"></div>
+                        <h4 style="color: var(--text-secondary); margin-top: 24px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; font-weight: 700;">Assessment Focus:</h4>
+                        <ul id="assessmentList" style="margin-top: 12px; color: var(--text-main); padding-left: 20px; line-height: 1.6;"></ul>
+                    </div>
+
+                    <div class="example-block fade-in-up" style="animation-delay: 0.1s">
+                        <div class="section-header">
+                            <span class="material-symbols-outlined" style="color: #F59E0B;">school</span>
+                            <div class="section-title">Recommended Learning Path</div>
+                        </div>
+                        <div id="learningGrid" class="learning-grid"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    // --- FULL DATASET ---
+    const levelData = {
+        "P0": {
+            title: "Intern",
+            subtitle: "Learning-first role focused on skill development",
+            scope: "Completes small tasks under guidance; learns product, codebase & tooling. Typical duration: 3-6 months.",
+            competencies: {
+                "Technical Excellence": "Writes simple, correct code; runs tests; follows style and CI guidelines; asks for help early when blocked.",
+                "System Design": "Understands small functions/modules; reads and comprehends design documentation.",
+                "Delivery & Execution": "Completes assigned JIRA tickets; follows branch/PR workflow consistently.",
+                "Product Impact": "Understands product basics and how features map to user needs.",
+                "Ownership": "Takes ownership of small bug fixes and documentation tasks end-to-end.",
+                "Communication": "Communicates blockers effectively; participates actively in standups."
+            },
+            promotion: {
+                criteria: [
+                    "Consistent demonstration of all current-level competencies over a sustained period.",
+                    "Demonstrated capabilities in select higher-level competencies.",
+                    "Completed tasks logs", "Learning journal", "Mentor feedback"
+                ],
+                artifacts: ["Completed tasks logs", "Learning journal", "Mentor feedback"]
+            }
+        },
+        "P1": {
+            title: "Associate",
+            subtitle: "Independent delivery of small features with peer review",
+            scope: "Delivers small features independently with peer review; begins contributing to design discussions.",
+            competencies: {
+                "Technical Excellence": "Demonstrates foundational proficiency in writing clean, maintainable, production-quality code with comprehensive tests; fixes moderate-complexity bugs; follows established coding guidelines and seeks feedback.",
+                "System Design": "Proposes reasonable component-level solutions; identifies trade-offs; basic understanding of microservices and cloud-native principles.",
+                "Delivery & Execution": "Delivers single-sprint features reliably with minimal rework; participates in CI/CD pipelines for small projects.",
+                "Ownership": "Owns small services/modules; follows SLIs/SLOs; basic awareness of cost optimization and security best practices like IAM roles."
+            },
+            promotion: {
+                criteria: [
+                    "Delivers small features independently with peer review",
+                    "Begins contributing to design discussions",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["PRs with 80%+ approval rate", "Bug fixes reducing defects by 20%", "User story acceptance tests"]
+            }
+        },
+        "P2": {
+            title: "Software Engineer 1 and 2",
+            subtitle: "Independent contributor owning moderately complex features across teams",
+            scope: "Owns moderately complex features across services; participates effectively in cross-team work.",
+            competencies: {
+                "Technical Excellence": "Demonstrates proficiency in writing clean, maintainable, and scalable code across services; optimizes queries and implements basic algorithms; writes well-tested code.",
+                "System Design": "Designs subsystems effectively; documents APIs/contracts; considers operational aspects like basic cloud cost models and security risks.",
+                "Delivery & Execution": "Owns complete feature lifecycle; coordinates effectively with QA/product teams; implements basic cost-saving measures like reserved instances.",
+                "Product Impact": "Measures feature impact using metrics, A/B testing, or telemetry analysis; identifies cost-saving opportunities in deployments.",
+                "Ownership": "Handles incidents reliably; performs on-call; experience with basic security measures in cloud environments.",
+                "Influence": "Creates clear PRs/documentation; mentors P1 engineers effectively; contributes to code reviews identifying basic issues."
+            },
+            promotion: {
+                criteria: [
+                    "Owns moderately complex features across services",
+                    "Participates effectively in cross-team work",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Feature launches with post-mortems", "On-call rotations with <5% escalation", "Mentorship sessions logged"]
+            }
+        },
+        "P3": {
+            title: "SSE 1 and SSE2",
+            subtitle: "Technical leader delivering high-complexity projects",
+            scope: "Delivers high-complexity projects; leads small initiatives; mentors team members. Technical lead on medium projects.",
+            competencies: {
+                "Technical Excellence": "Demonstrates advanced proficiency in writing clean, maintainable, and scalable code; drives code and test quality standards at team level; advanced algorithms and refactoring for performance.",
+                "System Design": "Designs moderate-to-large systems; writes clear, comprehensive design docs; owns API versioning; ensures adherence to coding standards.",
+                "Delivery & Execution": "Leads 1-2 person-month projects/rollback strategies; ensures reliable shipping; conducts thorough code reviews for complex issues.",
+                "Product Impact": "Collaborates with PMs on prioritization; quantifies/communicates outcomes; proficiency in designing cost-effective cloud solutions.",
+                "Ownership": "Proactively reduces technical debt; improves team SLIs/operational excellence; implements advanced security controls and threat mitigation.",
+                "Influence": "Reviews/approves significant PRs; provides structured mentorship; contributes to hiring; leads code reviews for smaller projects."
+            },
+            promotion: {
+                criteria: [
+                    "Delivers high-complexity projects",
+                    "Leads small initiatives; mentors team members",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Project retrospectives showing 90% on-time delivery", "Tech talks on design patterns", "Hiring interview contributions"]
+            }
+        },
+        "P4": {
+            title: "Principal and Sr. Principal",
+            subtitle: "Domain expert shaping technical strategy across multiple teams",
+            scope: "Leads large technical initiatives; influences architecture decisions; mentors senior engineers.",
+            competencies: {
+                "Technical Excellence": "Establishes organization-wide coding standards; drives innovation in tools and processes; expert in performance optimization and scalability.",
+                "System Design": "Architects complex, distributed systems; evaluates emerging technologies; leads design reviews for major projects.",
+                "Delivery & Execution": "Orchestrates multi-team projects; mitigates risks in high-stakes deliveries; optimizes CI/CD pipelines at scale.",
+                "Product Impact": "Drives product architecture aligning with business goals; conducts impact analyses for major features.",
+                "Ownership": "Owns critical systems; leads incident response; implements comprehensive security and compliance strategies.",
+                "Influence": "Presents at conferences; authors key technical documents; shapes hiring standards for senior roles.",
+                "Mentorship": "Mentors multiple teams; develops training programs; fosters a culture of technical excellence."
+            },
+            promotion: {
+                criteria: [
+                    "Leads large technical initiatives",
+                    "Influences architecture decisions",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Architecture design docs", "Conference presentations", "Mentorship program outcomes"]
+            }
+        },
+        "P4.5": {
+            title: "Tech Lead",
+            subtitle: "Hands-on technical leader (Delivery Focus)",
+            scope: "Hybrid lead owning team's technical roadmap and day-to-day delivery while remaining strong IC.",
+            competencies: {
+                "Technical Depth": "Deep in implementation, code, tooling, and debugging.",
+                "Execution Ownership": "Owns delivery of features/services end-to-end for their team(s).",
+                "Team Influence": "Leads 1–2 product; hands-on mentoring, unblocking, decision-making.",
+                "Decision-Making": "Tactical decisions that impact immediate execution and delivery.",
+                "Design Skills": "Component-level design (APIs, service boundaries).",
+                "Scalability": "Optimizes individual services/components for scale.",
+                "Communication": "Explains design choices to team; drives clarity for execution.",
+                "Problem-Solving": "Resolves day-to-day technical issues; unblocks dev workflows.",
+                "Standards": "Enforces engineering best practices at team level."
+            },
+            promotion: {
+                criteria: [
+                    "Consistent delivery of team goals with improved metrics",
+                    "Measurable improvement in cycle time and quality",
+                    "Positive team feedback on technical mentorship",
+                    "Successful cross-team collaboration and influence"
+                ],
+                artifacts: ["Team delivery metrics", "Technical mentorship examples", "Cross-team project leadership", "Process improvements"]
+            }
+        },
+        "P5": {
+            title: "Technical Architect / Senior Architect",
+            subtitle: "Enterprise-wide technical visionary (Strategic Focus)",
+            scope: "Defines long-term technical roadmap; solves organization-level challenges; industry influencer.",
+            competencies: {
+                "Technical Depth": "Deep in system design, architecture patterns, and integrations.",
+                "Execution Ownership": "Owns architectural direction and guardrails, not day-to-day delivery.",
+                "Team Influence": "Influences multiple teams; drives alignment across groups.",
+                "Decision-Making": "Strategic decisions shaping long-term technical direction.",
+                "Design Skills": "System-wide design, frameworks, integration patterns.",
+                "Scalability": "Defines platform-level scaling, multi-region, and resilience strategy.",
+                "Communication": "Communicates architectural vision and ensures org-wide alignment.",
+                "Problem-Solving": "Solves cross-system complexity; anticipates future issues.",
+                "Standards": "Defines architectural standards, patterns, and guardrails org-wide."
+            },
+            promotion: {
+                criteria: [
+                    "Defines long-term technical roadmap",
+                    "Solves organization-level challenges",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Technical roadmap documents", "Innovation case studies", "Leadership development reports"]
+            }
+        },
+        "P5.5": {
+            title: "Fellow",
+            subtitle: "Distinguished technical expert leading innovative projects",
+            scope: "Leads groundbreaking technical initiatives; influences company-wide technical direction; mentors principals.",
+            competencies: {
+                "Technical Innovation": "Pioneers new technologies and methodologies; contributes to open-source or patents.",
+                "Architecture Leadership": "Defines architectural standards across multiple teams; evaluates emerging tech.",
+                "Strategic Impact": "Drives initiatives that shape product evolution; conducts tech feasibility studies.",
+                "Mentorship & Influence": "Mentors senior engineers; presents at internal/external forums.",
+                "Cross-Organizational Collaboration": "Partners with other orgs on technical strategy.",
+                "Research & Development": "Leads R&D efforts for future capabilities."
+            },
+            promotion: {
+                criteria: [
+                    "Leads innovative technical projects with measurable impact",
+                    "Influences company-wide technical decisions",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Innovation project outcomes", "Technical publications", "Mentorship impact reports", "Strategic tech reviews"]
+            }
+        },
+        "P6": {
+            title: "Senior Fellow",
+            subtitle: "Industry thought leader and innovator",
+            scope: "Shapes industry practices; drives groundbreaking innovations; advises executive leadership.",
+            competencies: {
+                "Technical Excellence": "Advances the field through research and publications; holds patents in key areas.",
+                "System Design": "Conceptualizes revolutionary architectures; influences global standards.",
+                "Delivery & Execution": "Leads transformative initiatives impacting the entire industry.",
+                "Product Impact": "Drives paradigm-shifting product strategies; anticipates disruptive technologies.",
+                "Ownership": "Stewards company-wide technical vision; mitigates existential technical risks.",
+                "Influence": "Keynote speaker at major conferences; advises on M&A technical due diligence.",
+                "Mentorship": "Mentors C-level executives on technical matters; fosters innovation culture."
+            },
+            promotion: {
+                criteria: [
+                    "Shapes industry practices",
+                    "Drives groundbreaking innovations",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Patents and publications", "Industry influence metrics", "Executive advisory reports"]
+            }
+        },
+        "M1": {
+            title: "Team Lead",
+            subtitle: "Technical leader with initial people management",
+            scope: "Leads small team while maintaining hands-on technical contributions; owns feature delivery.",
+            competencies: {
+                "Technical Excellence": "Guides team in writing high-quality code; reviews complex PRs; maintains deep technical knowledge.",
+                "System Design": "Leads design discussions for team features; ensures scalable solutions.",
+                "Delivery & Execution": "Plans and executes feature delivery; removes technical blockers; coordinates with product.",
+                "Product Impact": "Understands requirements; creates solutions aligning with user needs; measures feature success.",
+                "Ownership": "Owns team deliverables ensuring on-time delivery with high quality; drives team KPIs aligned with business goals such as velocity, defect rates, and customer satisfaction; handles incidents; optimizes processes for efficiency.",
+                "Team Leadership": "Provides technical guidance; conducts 1:1s; supports career growth.",
+                "Communication": "Facilitates cross-team collaboration; communicates technical decisions effectively."
+            },
+            promotion: {
+                criteria: [
+                    "Leads small team effectively",
+                    "Delivers features with technical hands-on involvement",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Team delivery metrics", "Technical design docs", "Team feedback surveys"]
+            }
+        },
+        "M2": {
+            title: "Associate Manager",
+            subtitle: "Manager balancing technical and people leadership",
+            scope: "Manages team execution; contributes to technical strategy; focuses on product delivery.",
+            competencies: {
+                "Technical Excellence": "Advises on technical best practices; participates in code reviews; stays current with tech trends.",
+                "System Design": "Oversees system designs; identifies architectural improvements.",
+                "Delivery & Execution": "Creates delivery plans; manages timelines and resources; ensures on-time releases.",
+                "Product Impact": "Collaborates on requirement gathering; drives feature prioritization; analyzes product metrics.",
+                "Ownership": "Owns product area delivery ensuring on-time and high-quality outputs; drives team KPIs aligned with business objectives including efficiency, innovation, and revenue impact; mitigates risks; improves operational efficiency.",
+                "People Management": "Hires and onboards talent; provides performance feedback; fosters team collaboration.",
+                "Strategic Alignment": "Aligns team goals with company objectives; contributes to roadmap planning."
+            },
+            promotion: {
+                criteria: [
+                    "Manages team-level processes",
+                    "Balances technical and managerial responsibilities",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Delivery roadmaps", "Hiring metrics", "Performance review summaries"]
+            }
+        },
+        "M3": {
+            title: "Manager",
+            subtitle: "Leader driving a team's execution and growth",
+            scope: "Oversees a team; focuses on strategic delivery and career development.",
+            competencies: {
+                "Technical Leadership": "Guides technical decisions across the team; promotes engineering excellence.",
+                "System Design": "Reviews major designs; ensures alignment with overall architecture.",
+                "Delivery & Execution": "Orchestrates team deliveries; optimizes processes for scale.",
+                "Product Impact": "Partners with product on strategy; drives innovation in features.",
+                "Ownership": "Owns team deliverables ensuring consistent on-time delivery with superior quality; drives and monitors team KPIs aligned with broader business goals such as productivity, quality metrics, and strategic objectives; manages budgets and resources.",
+                "People Development": "Implements career frameworks; mentors team members; builds high-performing teams.",
+                "Cross-Functional Collaboration": "Builds strong relationships with other departments; resolves conflicts."
+            },
+            promotion: {
+                criteria: [
+                    "Drives execution across a team",
+                    "Implements career development programs",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Team metrics", "Career progression reports", "Process improvement cases"]
+            }
+        },
+        "M4": {
+            title: "Senior Manager",
+            subtitle: "Strategic leader owning product areas",
+            scope: "Owns major product areas with a team; shapes team structure and tech strategy.",
+            competencies: {
+                "Technical Strategy": "Defines technical direction for product areas; evaluates new technologies.",
+                "System Design": "Leads architecture evolution; ensures scalability and reliability.",
+                "Delivery & Execution": "Manages large-scale deliveries; optimizes for efficiency and quality.",
+                "Product Ownership": "Drives product vision; gathers requirements; prioritizes backlog.",
+                "Ownership": "Accountable for business outcomes through on-time, high-quality delivery; drives team KPIs that support overall organizational goals including revenue growth, customer retention, and operational efficiency; manages risks at scale.",
+                "People Leadership": "Develops leadership pipeline; fosters inclusive culture.",
+                "Business Acumen": "Aligns engineering with business goals; contributes to company strategy."
+            },
+            promotion: {
+                criteria: [
+                    "Owns product area execution",
+                    "Shapes hiring and org health",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Product performance reports", "Org design proposals", "Strategic alignment docs"]
+            }
+        },
+        "M4.5": {
+            title: "Associate Director",
+            subtitle: "Senior leader bridging management and executive functions",
+            scope: "Leads large organizations; focuses on strategic initiatives and operational excellence.",
+            competencies: {
+                "Technical Vision": "Shapes long-term technical strategy; influences industry practices.",
+                "System Design": "Oversees enterprise-wide architecture; drives innovation.",
+                "Delivery & Execution": "Leads complex programs; ensures consistent high performance.",
+                "Product Impact": "Drives market-leading features; analyzes competitive landscape.",
+                "Ownership": "Owns key business metrics through reliable, high-quality delivery; drives organizational KPIs aligned with enterprise goals such as scalability, profitability, and market share; manages large budgets.",
+                "Leadership Development": "Mentors senior managers; builds diverse leadership teams.",
+                "Stakeholder Management": "Partners with executives; communicates vision effectively."
+            },
+            promotion: {
+                criteria: [
+                    "Leads large engineering organizations",
+                    "Drives strategic technical initiatives",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Strategic initiative outcomes", "Budget management reports", "Leadership feedback"]
+            }
+        },
+        "M5": {
+            title: "Director",
+            subtitle: "Executive leader owning major engineering functions",
+            scope: "Directs multiple departments; aligns engineering with company-wide strategy.",
+            competencies: {
+                "Technical Excellence": "Champions cutting-edge practices; fosters innovation culture.",
+                "System Design": "Defines global architecture standards; anticipates future needs.",
+                "Delivery & Execution": "Oversees portfolio of major projects; optimizes for agility.",
+                "Product Ownership": "Shapes product strategy; drives revenue-impacting initiatives.",
+                "Ownership": "Accountable for organizational performance through consistent high-quality delivery; drives departmental KPIs that advance company-wide business objectives including growth, efficiency, and competitive advantage; manages enterprise risks.",
+                "People Management": "Builds world-class engineering organization; develops executive talent.",
+                "Business Strategy": "Contributes to C-level decisions; builds external partnerships."
+            },
+            promotion: {
+                criteria: [
+                    "Directs multiple engineering departments",
+                    "Aligns engineering with business strategy",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Departmental KPIs", "Strategic plans", "Talent development metrics"]
+            }
+        },
+        "M6": {
+            title: "Senior Director",
+            subtitle: "Visionary leader shaping company-wide engineering",
+            scope: "Leads entire engineering function; drives transformative changes.",
+            competencies: {
+                "Technical Innovation": "Leads industry-defining innovations; holds strategic patents.",
+                "System Design": "Architects future-proof platforms; influences global standards.",
+                "Delivery & Execution": "Transforms delivery processes for hyper-scale.",
+                "Product Impact": "Drives disruptive product strategies; anticipates market shifts.",
+                "Ownership": "Owns company technical vision ensuring sustained high-quality delivery; drives enterprise KPIs aligned with long-term business vision including innovation, sustainability, and market leadership; mitigates strategic risks.",
+                "Leadership": "Mentors directors; fosters excellence across the organization.",
+                "Executive Influence": "Advises CEO on technical matters; builds alliances."
+            },
+            promotion: {
+                criteria: [
+                    "Leads entire engineering organization",
+                    "Drives company-wide transformations",
+                    "Consistent demonstration of all current-level competencies over a sustained period."
+                ],
+                artifacts: ["Transformation case studies", "Industry recognition", "Executive reports"]
+            }
+        }
+    };
+
+    const competencyDomains = [
+        { name: "Technical Excellence", icon: "code_blocks" },
+        { name: "Technical Depth", icon: "layers" },
+        { name: "System Design", icon: "hub" },
+        { name: "Design Skills", icon: "draw" },
+        { name: "Delivery & Execution", icon: "rocket_launch" },
+        { name: "Execution Ownership", icon: "verified" },
+        { name: "Product Impact", icon: "monitoring" },
+        { name: "Ownership", icon: "target" },
+        { name: "Influence", icon: "psychology" },
+        { name: "Team Influence", icon: "groups" },
+        { name: "Mentorship", icon: "diversity_3" },
+        { name: "Decision-Making", icon: "gavel" },
+        { name: "Scalability", icon: "trending_up" },
+        { name: "Communication", icon: "chat" },
+        { name: "Problem-Solving", icon: "build" },
+        { name: "Standards", icon: "rule" },
+        { name: "People Management", icon: "groups" },
+        { name: "Team Leadership", icon: "supervised_user_circle" },
+        { name: "Business Acumen", icon: "business_center" },
+        { name: "Technical Leadership", icon: "terminal" },
+        { name: "Architecture", icon: "architecture" },
+        { name: "Delivery Management", icon: "schedule_send" },
+        { name: "People Development", icon: "school" },
+        { name: "Cross-Team Influence", icon: "handshake" },
+        { name: "Strategic Planning", icon: "strategy" },
+        { name: "Technical Innovation", icon: "lightbulb" },
+        { name: "Architecture Leadership", icon: "account_tree" },
+        { name: "Strategic Impact", icon: "ads_click" },
+        { name: "Mentorship & Influence", icon: "co_present" },
+        { name: "Research & Development", icon: "science" },
+        { name: "Technical Vision", icon: "auto_awesome" },
+        { name: "Leadership Development", icon: "group_add" },
+        { name: "Stakeholder Management", icon: "diversity_1" },
+        { name: "Business Strategy", icon: "trending_up" },
+        { name: "Executive Influence", icon: "diamond" }
+    ];
+
+    function getExamplesByLevel(levelKey) {
+        const defaults = {
+            interview: "Describe your approach to solving complex technical challenges at your level.",
+            assessment: ["Technical depth", "Strategic thinking", "Leadership impact", "Communication"],
+            learning: ["Advanced leadership", "Strategic planning", "Industry expertise"]
+        };
+
+        const examples = {
+            'P0': { interview: "Tell me about a small coding task you've completed. What did you learn?", assessment: ["Basic coding skills", "Learning attitude", "Communication", "Problem-solving basics"], learning: ["Intro to programming", "Version control basics", "Testing fundamentals", "Team collaboration"] },
+            'P1': { interview: "Walk me through a recent bug you fixed. What was your debugging process?", assessment: ["Understanding of basic debugging techniques", "Code reading and comprehension skills", "Learning ability and curiosity", "Communication of technical concepts"], learning: ["Codebase fundamentals", "Testing best practices", "Code review process", "Development workflow"] },
+            'P2': { interview: "Show me a PR you recently wrote. What trade-offs did you consider?", assessment: ["Code quality and structure", "Understanding of trade-offs", "Testing approach", "Documentation quality"], learning: ["System design basics", "Database fundamentals", "API design", "Production monitoring"] },
+            'P3': { interview: "Design a simple feature end-to-end (API, database schema, tests, deployment).", assessment: ["End-to-end thinking", "Database design skills", "API contract design", "Testing strategy", "Operational concerns"], learning: ["Microservices architecture", "Performance optimization", "Security best practices", "Cross-team collaboration"] },
+            'P4': { interview: "Here's a production outage timeline. What root causes and long-term fixes would you propose?", assessment: ["Incident analysis skills", "Root cause identification", "System thinking", "Prevention strategies", "Communication during crisis"], learning: ["Advanced system design", "Leadership skills", "Mentoring techniques", "Technical writing"] },
+            'P4.5': { interview: "How do you balance hands-on coding with technical leadership responsibilities?", assessment: ["Technical depth in leadership", "Team delivery ownership", "Mentorship effectiveness", "Cross-team collaboration"], learning: ["Advanced leadership", "Technical roadmap planning", "Mentor training", "Strategic technical decision making"] },
+            'P5': { interview: "Describe a difficult architectural decision you made. What were the trade-offs and how did you convince others?", assessment: ["Architectural reasoning", "Trade-off analysis", "Influence and communication", "Strategic thinking"], learning: ["Enterprise architecture patterns", "Technical strategy formulation", "Influence without authority", "Writing effective ADRs"] },
+            'P5.5': { interview: "Describe a groundbreaking technical initiative you've led.", assessment: ["Innovation impact", "Strategic influence", "Mentorship at senior level", "Cross-org collaboration"], learning: ["R&D methodologies", "Emerging technologies", "Executive technical communication", "Innovation frameworks"] },
+            'P6': { interview: "How would you approach a platform modernization affecting 20+ teams over 18 months?", assessment: ["Strategic planning", "Change management", "Cross-team coordination", "Risk assessment", "Business impact analysis"], learning: ["Platform strategy", "Organizational change", "Executive leadership", "Industry trends"] },
+            'M1': { interview: "How would you handle a direct report who is struggling with performance?", assessment: ["Performance management approach", "Coaching skills", "Documentation practices", "Empathy and support"], learning: ["Management fundamentals", "1:1 best practices", "Performance coaching", "Hiring and interviewing"] },
+            'M2': { interview: "How do you balance competing priorities across multiple teams with limited resources?", assessment: ["Resource allocation", "Prioritization frameworks", "Stakeholder management", "Trade-off communication"], learning: ["Multi-team management", "Strategic planning", "Budget management", "Organizational design"] },
+            'M3': { interview: "Describe how you implement career frameworks in your teams.", assessment: ["Career development strategies", "Advancement path clarity", "Talent retention", "Performance alignment"], learning: ["Leadership development", "OKR alignment", "Team scaling", "Process improvement"] },
+            'M4': { interview: "How do you shape hiring strategies for a product area?", assessment: ["Diversity and inclusion", "High-performance team building", "Org health metrics", "Cross-functional partnerships"], learning: ["Executive influence", "Product strategy", "Talent pipeline", "Tech org scaling"] },
+            'M4.5': { interview: "Describe a strategic initiative you've led across multiple departments.", assessment: ["Strategic planning", "Cross-functional leadership", "Risk management", "Outcome measurement"], learning: ["Advanced leadership", "Program management", "Change management", "Metrics-driven decision making"] },
+            'M5': { interview: "Walk through a large cross-functional program you've led.", assessment: ["Budget optimization", "Risk mitigation", "Stakeholder management", "Strategic staffing"], learning: ["Executive leadership", "Vendor partnerships", "Program governance", "Business alignment"] },
+            'M6': { interview: "How would you transform an engineering organization to adapt to new market challenges?", assessment: ["Visionary thinking", "Organizational transformation", "Innovation leadership", "Executive communication"], learning: ["C-level strategy", "Industry foresight", "Global leadership", "Cultural change"] }
+        };
+        return examples[levelKey] || defaults;
+    }
+
+    // --- LOGIC ---
+
+    function init() {
+        const icList = document.getElementById('ic-level-list');
+        const mgrList = document.getElementById('mgr-level-list');
+
+        Object.keys(levelData).forEach(key => {
+            const data = levelData[key];
+            const item = document.createElement('div');
+            item.className = 'level-item';
+            item.onclick = () => selectLevel(key, item);
+            
+            const isManager = key.startsWith('M');
+            const iconName = isManager ? 'groups' : 'person';
+            
+            // REMOVED LEVEL CODE FROM DISPLAY
+            item.innerHTML = `
+                <div class="level-info">
+                    <div class="level-icon-box">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">${iconName}</span>
+                    </div>
+                    <div class="level-name">
+                        ${data.title}
+                    </div>
+                </div>
+                <span class="material-symbols-outlined" style="font-size: 16px; opacity: 0.3;">chevron_right</span>
+            `;
+
+            if (isManager) mgrList.appendChild(item);
+            else icList.appendChild(item);
+        });
+    }
+
+    function selectLevel(key, element) {
+        // UI State Updates
+        document.querySelectorAll('.level-item').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        
+        document.getElementById('emptyState').classList.add('hidden');
+        document.getElementById('roleContent').classList.remove('hidden');
+
+        // Animation Reset
+        const content = document.getElementById('roleContent');
+        content.classList.remove('fade-in-up');
+        void content.offsetWidth; 
+        content.classList.add('fade-in-up');
+
+        // Populate Content
+        const data = levelData[key];
+        const examples = getExamplesByLevel(key);
+
+        // Header - UPDATED TO REMOVE LEVEL CODE
+        document.getElementById('roleTitle').innerText = data.title;
+        document.getElementById('roleSubtitle').innerText = data.subtitle;
+        document.getElementById('roleScope').innerHTML = `<strong>Scope:</strong> ${data.scope}`;
+        document.getElementById('breadcrumb-role').innerText = data.title;
+
+        // 1. Competencies Tab
+        const compGrid = document.getElementById('competencyGrid');
+        compGrid.innerHTML = '';
+        Object.entries(data.competencies).forEach(([name, desc], idx) => {
+            const domainObj = competencyDomains.find(d => d.name === name);
+            const icon = domainObj ? domainObj.icon : "stars"; 
+            
+            compGrid.innerHTML += `
+                <div class="comp-card" style="transition-delay: ${idx * 50}ms">
+                    <div class="comp-header">
+                        <div class="comp-icon-box"><span class="material-symbols-outlined">${icon}</span></div>
+                        <div class="comp-title">${name}</div>
+                    </div>
+                    <div class="comp-text">${desc}</div>
+                </div>
+            `;
+        });
+
+        // 2. Promotion Tab
+        const promoList = document.getElementById('promoList');
+        promoList.innerHTML = data.promotion.criteria.map(item => `
+            <li class="criteria-item">
+                <span class="material-symbols-outlined criteria-icon">check_circle</span>
+                <span>${item}</span>
+            </li>
+        `).join('');
+
+        const artifactGrid = document.getElementById('artifactGrid');
+        artifactGrid.innerHTML = data.promotion.artifacts.map(item => `
+            <div class="artifact-chip">${item}</div>
+        `).join('');
+
+        // 3. Examples Tab
+        document.getElementById('interviewQ').innerText = `"${examples.interview}"`;
+        document.getElementById('assessmentList').innerHTML = examples.assessment.map(item => `<li>${item}</li>`).join('');
+        
+        document.getElementById('learningGrid').innerHTML = examples.learning.map(item => `
+            <div class="learning-card">${item}</div>
+        `).join('');
+
+        // Reset to first tab
+        switchTab('competencies');
+    }
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if(event && event.target) {
+             event.target.classList.add('active');
+        } else {
+             document.querySelector('.tab-btn').classList.add('active');
+        }
+
+        document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+        const activePane = document.getElementById('tab-' + tabId);
+        activePane.classList.remove('hidden');
+        
+        activePane.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.animation = 'none';
+            el.offsetHeight; 
+            el.style.animation = null; 
+        });
+    }
+
+    // Initialize Sidebar
+    init();
+
+</script>
+</body>
+</html>

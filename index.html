@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronak Mehta | HR Strategy & Transformation</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        'apple-gray': '#F5F5F7',
+                        'apple-dark': '#1D1D1F',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FBFBFD;
+            color: #1D1D1F;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Glassmorphism Utilities based on the reference UI */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        
+        /* Stronger glass for project cards */
+        .glass-card {
+             background: rgba(255, 255, 255, 0.85);
+             backdrop-filter: blur(24px);
+             -webkit-backdrop-filter: blur(24px);
+             border: 1px solid rgba(255, 255, 255, 0.5);
+             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #1D1D1F 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ambient Background Blobs */
+        .blob {
+            position: absolute;
+            filter: blur(90px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 12s infinite ease-in-out;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #E0E7FF; animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #F3E8FF; animation-delay: -4s; }
+        .blob-3 { top: 40%; left: 30%; width: 400px; height: 400px; background: #FFE4E6; animation-delay: -8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Hide Scrollbar */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight text-gradient">Ronak Mehta</a>
+            <div class="hidden md:flex gap-10 text-sm font-semibold text-gray-600">
+                <a href="#about" class="hover:text-black transition-colors">About</a>
+                <a href="#projects" class="hover:text-black transition-colors">Portfolio</a>
+                <a href="#experience" class="hover:text-black transition-colors">Experience</a>
+            </div>
+            <a href="mailto:sayhironak@gmail.com" class="bg-[#1D1D1F] text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-gray-800 transition-transform hover:scale-105 active:scale-95">Get in Touch</a>
+        </div>
+    </nav>
+
+    <section id="about" class="min-h-screen flex items-center relative pt-28 pb-20">
+        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-16 items-center">
+            <div class="order-2 lg:order-1 space-y-10 animate-up">
+                <div class="inline-flex items-center gap-2 bg-white/80 glass-card px-5 py-2.5 rounded-full text-sm font-bold text-gray-700 shadow-sm">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    HR Strategy & Transformation Specialist
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-extrabold leading-none tracking-tight">
+                    Architecting the <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Future of Work.</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 max-w-xl leading-relaxed font-medium">
+                    I translate business priorities into actionable HR strategies. With 11+ years of experience, I build engines, not just fires, spanning organization design, digitization, and people analytics to drive measurable growth.
+                </p>
+
+                <div class="flex flex-wrap gap-6 pt-4">
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+                        <span class="text-4xl font-extrabold text-black">11+</span>
+                        <span class="text-xs text-gray-500 uppercase font-bold leading-tight tracking-wider">Years<br>Experience</span>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+                        <span class="text-4xl font-extrabold text-black">13</span>
+                        <span class="text-xs text-gray-500 uppercase font-bold leading-tight tracking-wider">Countries<br>Managed</span>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+                        <span class="text-4xl font-extrabold text-black">600+</span>
+                        <span class="text-xs text-gray-500 uppercase font-bold leading-tight tracking-wider">Lives<br>Impacted</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2 flex justify-center relative animate-fade z-10">
+                <div class="relative w-80 h-80 md:w-[500px] md:h-[500px] group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-[3rem] blur-3xl opacity-60 transform scale-105 group-hover:scale-110 transition-transform duration-700"></div>
+                    <img src="headshot.png" alt="Ronak Mehta" class="relative w-full h-full object-cover rounded-[3rem] shadow-2xl z-10 border-[6px] border-white">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20 text-center md:text-left">
+                <h2 class="text-5xl font-extrabold mb-6 tracking-tight">Selected Artifacts</h2>
+                <p class="text-gray-600 max-w-2xl text-xl leading-relaxed">
+                    I don't just manage processes; I engineer scalable solutions. Below are interactive prototypes of systems I have designed to solve complex organizational challenges.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                
+                <a href="PMS PROTO.html" target="_blank" class="group block">
+                    <div class="project-card glass-card bg-gradient-to-br from-blue-50/50 to-white rounded-[2rem] p-8 h-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-6 opacity-[0.08] group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
+                            <span class="material-symbols-rounded text-[10rem]">grid_view</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="inline-block text-xs font-black text-blue-700 bg-blue-100 px-4 py-2 rounded-full uppercase tracking-widest mb-6">Performance Management</span>
+                            <h3 class="text-3xl font-bold mb-4 group-hover:text-blue-700 transition-colors">Performance Nexus</h3>
+                            <p class="text-gray-600 mb-8 text-lg leading-relaxed">A digitized self-evaluation and manager review system designed to streamline the Performance Management process. Features AI drafting and real-time scorecards.</p>
+                        </div>
+                        <div class="mt-auto bg-white rounded-t-2xl shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] border-t border-l border-r border-gray-100 h-56 overflow-hidden relative">
+                             <div class="absolute inset-0 bg-gray-50/50 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest z-20 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">Launch Prototype</div>
+                             <div class="p-6 space-y-4 opacity-60 group-hover:opacity-100 transition-opacity">
+                                 <div class="h-4 bg-gray-100 rounded-full w-1/3"></div>
+                                 <div class="flex gap-4">
+                                     <div class="h-24 bg-blue-100 rounded-xl w-1/2"></div>
+                                     <div class="h-24 bg-gray-100 rounded-xl w-1/2"></div>
+                                 </div>
+                                  <div class="h-4 bg-gray-100 rounded-full w-2/3"></div>
+                             </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="Leaders Guidebook.html" target="_blank" class="group block">
+                    <div class="project-card glass-card bg-gradient-to-br from-emerald-50/50 to-white rounded-[2rem] p-8 h-full relative overflow-hidden">
+                         <div class="absolute top-0 right-0 p-6 opacity-[0.08] group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
+                            <span class="material-symbols-rounded text-[10rem]">rocket_launch</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="inline-block text-xs font-black text-emerald-700 bg-emerald-100 px-4 py-2 rounded-full uppercase tracking-widest mb-6">L&D / Enablement</span>
+                            <h3 class="text-3xl font-bold mb-4 group-hover:text-emerald-700 transition-colors">The Leader's Field Guide</h3>
+                            <p class="text-gray-600 mb-8 text-lg leading-relaxed">An interactive playbook for building high-performance teams. Includes AI psychometric testing and quarterly strategy maps.</p>
+                        </div>
+                        <div class="mt-auto bg-white rounded-t-2xl shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] border-t border-l border-r border-gray-100 h-56 overflow-hidden relative flex items-end justify-center px-8 pt-8">
+                             <div class="absolute inset-0 bg-gray-50/50 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest z-20 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">Open Guidebook</div>
+                            <div class="w-full h-full bg-emerald-50 rounded-t-2xl shadow-sm border border-emerald-100 p-5 opacity-60 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-2">
+                                <div class="w-1/2 h-3 bg-emerald-500 rounded-full mb-3"></div>
+                                <div class="w-full h-2 bg-gray-200 rounded-full mb-2"></div>
+                                <div class="w-2/3 h-2 bg-gray-200 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="Compatel.html" target="_blank" class="group block">
+                    <div class="project-card glass-card bg-gradient-to-br from-indigo-50/50 to-white rounded-[2rem] p-8 h-full relative overflow-hidden">
+                         <div class="absolute top-0 right-0 p-6 opacity-[0.08] group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
+                            <span class="material-symbols-rounded text-[10rem]">analytics</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="inline-block text-xs font-black text-indigo-700 bg-indigo-100 px-4 py-2 rounded-full uppercase tracking-widest mb-6">Compensation Analytics</span>
+                            <h3 class="text-3xl font-bold mb-4 group-hover:text-indigo-700 transition-colors">CompIntel Pro</h3>
+                            <p class="text-gray-600 mb-8 text-lg leading-relaxed">A compensation intelligence dashboard featuring market benchmarking, flight risk analysis, and gender gap detection.</p>
+                        </div>
+                         <div class="mt-auto bg-white rounded-t-2xl shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] border-t border-l border-r border-gray-100 h-56 overflow-hidden relative p-8 flex gap-3 items-end">
+                              <div class="absolute inset-0 bg-gray-50/50 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest z-20 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">View Dashboard</div>
+                             <div class="w-1/4 h-1/3 bg-indigo-200 rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                             <div class="w-1/4 h-1/2 bg-indigo-300 rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                             <div class="w-1/4 h-3/4 bg-indigo-500 rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                             <div class="w-1/4 h-full bg-indigo-600 rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="Competency Portal.html" target="_blank" class="group block">
+                    <div class="project-card glass-card bg-gradient-to-br from-purple-50/50 to-white rounded-[2rem] p-8 h-full relative overflow-hidden">
+                         <div class="absolute top-0 right-0 p-6 opacity-[0.08] group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
+                            <span class="material-symbols-rounded text-[10rem]">stairs</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="inline-block text-xs font-black text-purple-700 bg-purple-100 px-4 py-2 rounded-full uppercase tracking-widest mb-6">Org Design</span>
+                            <h3 class="text-3xl font-bold mb-4 group-hover:text-purple-700 transition-colors">Competency Portal</h3>
+                            <p class="text-gray-600 mb-8 text-lg leading-relaxed">Interactive engineering career ladder framework. Defines expectations from Intern (P0) to Senior Fellow (P6).</p>
+                        </div>
+                         <div class="mt-auto bg-white rounded-t-2xl shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] border-t border-l border-r border-gray-100 h-56 overflow-hidden relative p-8 space-y-4 opacity-60 group-hover:opacity-100 transition-opacity">
+                              <div class="absolute inset-0 bg-gray-50/50 flex items-center justify-center text-gray-400 font-bold uppercase tracking-widest z-20 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">Explore Framework</div>
+                             <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-purple-100"></div> <div class="h-3 w-32 bg-gray-100 rounded-full"></div></div>
+                             <div class="flex items-center gap-4 pl-8"><div class="w-10 h-10 rounded-lg bg-purple-200"></div> <div class="h-3 w-32 bg-gray-100 rounded-full"></div></div>
+                             <div class="flex items-center gap-4 pl-16"><div class="w-10 h-10 rounded-lg bg-purple-300"></div> <div class="h-3 w-32 bg-gray-100 rounded-full"></div></div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-32 relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-5xl font-extrabold mb-16 text-center tracking-tight">Professional Journey</h2>
+
+            <div class="space-y-16">
+                <div class="relative pl-12 border-l-[3px] border-blue-100 experience-item">
+                    <div class="absolute -left-[11px] top-2 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow-md ring-4 ring-blue-50"></div>
+                    <div class="glass-card p-8 rounded-3xl hover:border-blue-200 transition-colors">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-gray-900">Senior Culture & Engagement Specialist</h3>
+                            <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Jan 2023 - Present</span>
+                        </div>
+                        <div class="text-lg font-semibold text-gray-700 mb-6 flex items-center gap-2">
+                            <span class="material-symbols-rounded">business</span> Contentstack • Mumbai (Global Scope)
+                        </div>
+                        <ul class="space-y-3 text-gray-600 list-disc pl-5 text-base leading-relaxed marker:text-blue-500">
+                            <li>Partnered with executive leadership to design a Global People Strategy across <strong>North America, Europe, and APAC</strong>.</li>
+                            <li>Led end-to-end Project Management for <strong>HiBob and GreytHR</strong> HRIS migration.</li>
+                            <li>Leveraged predictive analytics to slash annualized attrition to <strong>&lt;10%</strong> (single digits).</li>
+                            <li>Elevated eNPS to <strong>74</strong> through targeted culture squads and engagement initiatives.</li>
+                            <li>Awards: "Above & Beyond Award" (2023 & 2024).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative pl-12 border-l-[3px] border-gray-200 experience-item">
+                    <div class="absolute -left-[11px] top-2 w-5 h-5 rounded-full bg-gray-400 border-4 border-white shadow-md ring-4 ring-gray-50"></div>
+                     <div class="glass-card p-8 rounded-3xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-gray-900">Human Resource Manager</h3>
+                            <span class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Jun 2015 - Jan 2023</span>
+                        </div>
+                        <div class="text-lg font-semibold text-gray-700 mb-6 flex items-center gap-2">
+                             <span class="material-symbols-rounded">business</span> DronaHQ • Mumbai
+                        </div>
+                        <ul class="space-y-3 text-gray-600 list-disc pl-5 text-base leading-relaxed marker:text-gray-400">
+                            <li><strong>Founding HR Partner:</strong> Scaled the function from scratch to 200+ employees.</li>
+                            <li>Spearheaded Digital Transformation, automating <strong>80% of manual HR workflows</strong> via low-code tools.</li>
+                            <li>Maintained attrition below 10% over 7 years through robust succession planning.</li>
+                            <li>Built and mentored a high-performing HR project team of 3.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative pl-12 border-l-[3px] border-gray-200 experience-item">
+                    <div class="absolute -left-[11px] top-2 w-5 h-5 rounded-full bg-gray-300 border-4 border-white shadow-md ring-4 ring-gray-50"></div>
+                     <div class="glass-card p-8 rounded-3xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-gray-900">Human Resource Executive</h3>
+                            <span class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">May 2014 - Jun 2015</span>
+                        </div>
+                        <div class="text-lg font-semibold text-gray-700 mb-6 flex items-center gap-2">
+                             <span class="material-symbols-rounded">business</span> Havmore Insurance Brokers
+                        </div>
+                        <p class="text-gray-600 text-base leading-relaxed">Managed end-to-end HR lifecycle and streamlined recruitment processes for 100+ employees.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+            <div class="glass-card p-10 rounded-[2.5rem]">
+                <h3 class="text-3xl font-extrabold mb-10 flex items-center gap-3"><span class="material-symbols-rounded text-blue-600">psychology</span> Core Competencies</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 shadow-sm">Strategic Workforce Planning</span>
+                    <span class="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 shadow-sm">HR Analytics</span>
+                    <span class="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 shadow-sm">Digital Transformation</span>
+                    <span class="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 shadow-sm">Change Management</span>
+                    <span class="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 shadow-sm">Agile HR</span>
+                    <span class="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 shadow-sm">Org Design</span>
+                </div>
+                
+                <h3 class="text-3xl font-extrabold mb-10 mt-16 flex items-center gap-3"><span class="material-symbols-rounded text-indigo-600">code_blocks</span> Tech Stack</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-5 py-2.5 bg-indigo-50 border border-indigo-100 rounded-xl text-sm font-bold text-indigo-700">HiBob</span>
+                    <span class="px-5 py-2.5 bg-indigo-50 border border-indigo-100 rounded-xl text-sm font-bold text-indigo-700">GreytHR</span>
+                    <span class="px-5 py-2.5 bg-indigo-50 border border-indigo-100 rounded-xl text-sm font-bold text-indigo-700">Jira Automation</span>
+                    <span class="px-5 py-2.5 bg-indigo-50 border border-indigo-100 rounded-xl text-sm font-bold text-indigo-700">Low-Code Tools</span>
+                                        <span class="px-5 py-2.5 bg-indigo-50 border border-indigo-100 rounded-xl text-sm font-bold text-indigo-700">AI</span>
+                </div>
+            </div>
+            
+            <div class="glass-card p-10 rounded-[2.5rem]">
+                <h3 class="text-3xl font-extrabold mb-10 flex items-center gap-3"><span class="material-symbols-rounded text-purple-600">school</span> Education</h3>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-5 group">
+                        <div class="w-16 h-16 bg-[#1D1D1F] text-white flex items-center justify-center rounded-2xl font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">M</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900">Masters of Management Studies (HRM)</h4>
+                            <p class="text-base font-medium text-gray-500 mt-1">Mumbai University | 2012-2014</p>
+                        </div>
+                    </div>
+                    <div class="w-full h-px bg-gray-200"></div>
+                    <div class="flex items-start gap-5 group">
+                        <div class="w-16 h-16 bg-white border-2 border-gray-200 text-gray-900 flex items-center justify-center rounded-2xl font-bold text-2xl shadow-sm group-hover:scale-110 transition-transform">IIM</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900">Performance Management</h4>
+                            <p class="text-base font-medium text-gray-500 mt-1">IIM Bangalore (SWAYAM) | 2025</p>
+                        </div>
+                    </div>
+                     <div class="w-full h-px bg-gray-200"></div>
+                     <div class="flex items-start gap-5 group">
+                        <div class="w-16 h-16 bg-white border-2 border-gray-200 text-gray-900 flex items-center justify-center rounded-2xl font-bold text-2xl shadow-sm group-hover:scale-110 transition-transform">B</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900">Bachelor of Commerce</h4>
+                            <p class="text-base font-medium text-gray-500 mt-1">Mumbai University | 2008-2011</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#1D1D1F] text-white py-32 relative overflow-hidden z-20">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600 rounded-full blur-[150px] opacity-20 pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-6xl md:text-7xl font-extrabold mb-10 tracking-tight">Let's build something extraordinary.</h2>
+            <p class="text-gray-400 text-xl mb-16 max-w-2xl mx-auto leading-relaxed font-medium">Open to discussing HR Transformation projects, Digital Strategy roles, and speaking opportunities. Let's connect.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-24">
+                <a href="mailto:sayhironak@gmail.com" class="px-10 py-5 bg-white text-black rounded-full text-lg font-bold hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 hover:scale-105 active:scale-95">
+                    <span class="material-symbols-rounded">mail</span> sayhironak@gmail.com
+                </a>
+                <a href="https://linkedin.com/in/ronakmehta1910" target="_blank" class="px-10 py-5 bg-[#1D1D1F] border-2 border-gray-700 text-white rounded-full text-lg font-bold hover:bg-gray-800 hover:border-gray-600 transition-all flex items-center justify-center gap-3 hover:scale-105 active:scale-95">
+                    <span class="material-symbols-rounded">link</span> LinkedIn Profile
+                </a>
+            </div>
+            
+            <div class="text-gray-500 text-sm font-medium border-t border-gray-800 pt-10 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p>&copy; 2025 Ronak Mehta. All rights reserved.</p>
+                <p>Mumbai, India • +91-9769499049</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations based on reference UI behavior
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animations
+        gsap.from(".animate-up", {
+            y: 60,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+
+        gsap.from(".animate-fade", {
+            opacity: 0,
+            scale: 0.95,
+            duration: 1.5,
+            delay: 0.6,
+            ease: "power2.out"
+        });
+
+        // Scroll Animations for Project Cards
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                },
+                y: 80,
+                opacity: 0,
+                duration: 1,
+                delay: i * 0.15,
+                ease: "power3.out"
+            });
+        });
+
+        // Scroll Animations for Experience
+        gsap.utils.toArray('.experience-item').forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                },
+                x: -30,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.2,
+                ease: "power3.out"
+            });
+        });
+    </script>
+</body>
+</html>
